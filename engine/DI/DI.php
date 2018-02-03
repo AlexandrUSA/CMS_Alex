@@ -4,9 +4,10 @@ namespace Engine\DI;
 
 class DI
 {
-    // Хранилище всех зависимостей
+    // Хранилище всех зависимостей CMS
     private $container = [];
-    // Установка новых зависимостей
+
+    // Установка новых зависимостей в CMS
     public function set($key, $value)
     {
         $this->container[$key] = $value;
@@ -15,11 +16,7 @@ class DI
     // Получение текущих зависимостей по ключу $key
     public function get($key)
     {
-        return $this->hasKey($key);
-    }
-    // Проверяем, существует ли ключ $key в зависимостях container
-    public function hasKey($key)
-    {
+        // Если зависимсть $key есть в контейнере то возращаем ее, если нет - нулл
         return isset($this->container[$key]) ? $this->container[$key] : null;
     }
 
