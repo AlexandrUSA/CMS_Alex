@@ -23,10 +23,8 @@ class Cms
     public function run()
     {
         try {
-            // Чисто для тестов захардкодил пару роутов
-            $this->router->add('home', '/', 'HomeController:index');
-            $this->router->add('news', '/news', 'HomeController:news');
-            $this->router->add('news_single', '/news/(id:int)', 'HomeController:news');
+            // Подключение роутов
+            require_once __DIR__ . '\..\cms\Routes.php';
 
             $routerDispatch = $this->router->dispatch(Common::getMethod(), Common::getURI());
             //   print_r($routerDispatch);
