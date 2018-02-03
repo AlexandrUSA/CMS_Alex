@@ -8,7 +8,11 @@
 
 namespace Engine\Core\Router;
 
-
+/**
+ * Класс UrlDispatcher хранит роуты паттерны для их определения
+ * выполняет поиск контроллеров и параметров запроса
+ * @package Engine\Core\Router
+ */
 class UrlDispatcher
 {
     private $methods = ['GET', 'POST'], // Хранит типы наших методов, будут добавлятся по ходу
@@ -18,10 +22,15 @@ class UrlDispatcher
         ],
         $patterns = [   // Перечисляем наши рег. выр. паттерны для роутинга
             'int' => '[0-9]+',
-            'str' => '[a-zA-z\.\-_%]+',
-            'common' => '[0-9a-zA-z\.\-_%]+'
+            'str' => '[a-zA-Z\.\-_%]+',
+            'any' => '[a-zA-Z0-9\.\-_%]+'
         ];
 
+    /**
+     * Вспомогательная функция
+     * @param $action по которому ищем массив интерисующих роутов 'GET', 'POST'
+     * @return Массив роутов по ключу $action
+     */
     private function routes($action)
     {
         return isset($this->routes[$action]) ? $this->routes[$action] : [];
@@ -40,16 +49,17 @@ class UrlDispatcher
     }
 
     /**
-     * Функция поиска нужного роута по переданному ури
+     * Функция поиска нужного роута по переданному uri
      * @param $method
      * @param $uri
-     * @return DispatchedRoute
+     * @return Обьект DispatchedRoute с переданным ему конроллером (Пока без параметров)
      */
     public function dispatch($method, $uri)
     {
         // Получаем все роуты переданного метода $action
         $routes = $this->routes(strtoupper($method));
-        // Если в массиве имеется роут с заданным uri то создаем новый екземпляр DispatchedRoute и передаем ему uri в качестве контроллера
+        // Если в массиве имеется роут с заданным uri то создаем новый екземпляр DispatchedRoute
+        // и передаем ему в качестве контроллера, тот который лежит в нашем массиве $routes для заданного uri
         if(is_array($routes) && array_key_exists($uri, $routes)) {
             return new DispatchedRoute($routes[$uri]);
         }
@@ -59,18 +69,15 @@ class UrlDispatcher
 
     private function doDispatch($method, $uri)
     {
-        if(is_array($method) || is_object($method))
-        {
             foreach($this->routes($method) as $route => $controller)
             {
                 $pattern = "#^" . $route . "$#s";
 
                 if(preg_match($pattern, $uri, $parameters))
                 {
-                    return new DispatchedRoute($controller, $parameters);
+                    return new DispatchedRoute($controller, $this->clearParameters($parameters));
                 }
             }
-        }
     }
 
     /**
@@ -82,6 +89,71 @@ class UrlDispatcher
      */
     public function registRoute($method, $pattern, $controller)
     {
-        $this->routes[strtoupper($method)][$pattern] = $controller;
+        // print_r($pattern);
+       // echo '<br>';
+        $convertedPattern = $this->convertPattern($pattern);
+        //print_r($convertedPattern);
+        //echo '<br>';
+        $this->routes[strtoupper($method)][$convertedPattern] = $controller;
+    }
+
+    /**
+     * Функция конвертации пришедшего описательного паттерна в паттерн с нужными нам значениями
+     * @param $pattern
+     * @return string с вставленными значениями
+     */
+    private function convertPattern($pattern)
+    {
+        // если этот петтерн без параметров (параметры указываются в скобках) то просто возращаем его
+        if( strpos($pattern, '(') === false)
+        {
+           // echo $pattern;
+           // echo '<br>';
+            return $pattern;
+        }
+       // echo $pattern с параметрами типа (параметр:тип) то конвертируем его;
+        return preg_replace_callback('#\((\w+):(\w+)\)#', [$this, 'replacePattern'], $pattern);
+    }
+
+    /**
+     * Вспомогательная функция для замены эл-ов в паттерне на реальный пришедший id и рег.
+     * @param $matches типа Array прим. [[0] => (id:int) [1] => id [2] => int]
+     * @return string с вставленными значениями
+     */
+    private function replacePattern($matches)
+    {
+       // print_r($matches);
+       // echo '<br>';
+        return '(?<' . $matches[1] . '>' . strtr($matches[2], $this->patterns) . ')';
+    }
+
+    /**
+     * Вспомогательная функция для очистки параметров от мусора
+     * @param $parameters типа массив [[0] => /news/27 [id] => 27 [1] => 27]
+     * @return чистый массив типа [[id] => 27]
+     */
+    private function clearParameters($parameters)
+    {
+        foreach ($parameters as $key => $parameter)
+        {
+            if(is_int($key))
+            {
+                unset($parameters[$key]);
+            }
+        }
+       // print_r($parameters);
+        return $parameters;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

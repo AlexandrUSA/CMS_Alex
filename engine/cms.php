@@ -26,6 +26,7 @@ class Cms
             // Чисто для тестов захардкодил пару роутов
             $this->router->add('home', '/', 'HomeController:index');
             $this->router->add('news', '/news', 'HomeController:news');
+            $this->router->add('news_single', '/news/(id:int)', 'HomeController:news');
 
             $routerDispatch = $this->router->dispatch(Common::getMethod(), Common::getURI());
             //   print_r($routerDispatch);
@@ -43,6 +44,7 @@ class Cms
             $parameters = $routerDispatch->getParameters();
             // И вызываем получившийся контролллер с акшеном
             call_user_func_array([new  $controller($this->di), $action], $parameters);
+           // print_r($this->di);
         } catch (\Exception $e) {
             echo $e->getMessage();
             exit();

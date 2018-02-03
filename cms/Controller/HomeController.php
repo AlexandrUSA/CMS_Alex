@@ -17,9 +17,9 @@ class HomeController extends MainController
         echo 'Index page';
     }
 
-    public function news()
+    public function news($id = null)
     {
-        echo 'News page!';
+        echo 'News page!' . $id;
     }
 
 }
