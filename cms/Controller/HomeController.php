@@ -14,7 +14,10 @@ class HomeController extends MainController
 
     public function index()
     {
-        echo 'Index page';
+        $db = $this->di->get('Database');
+        $mybd = new $db();
+        $data = $mybd->get('category', 'title');
+        $this->view->render('index', $data);
     }
 
     public function news($id = null)

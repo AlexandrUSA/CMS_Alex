@@ -40,13 +40,19 @@ class Connection
         $write = $this->connect->prepare( $sql ); // Подготавливаем запрос $sql к БД
         return $write->execute(); // И выполняем его
     }
-    // Функция чтения из БД
-    // Возращает ассоциативный массив с ответом или путой массив при неудаче
-    public function read( $sql )
-    {
+
+    /**
+     * Функция чтения из БД
+     * @param $table название таблицы
+     * @param $elems то, что хотим выбрать
+     * @return ассоциативный массив с ответом или путой массив при неудаче
+     */
+    public function get($table, $elems) {
+        $sql = "SELECT $elems FROM $table";
         $query = $this->connect->prepare( $sql );
         $query->execute();
         $result = $query->fetchAll();   // Получаем ассоциативный массив из обьекта ответа PDO
         return ($result) ? $result : [];
     }
+
 }

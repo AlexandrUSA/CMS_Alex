@@ -15,9 +15,11 @@ abstract class Controller
     /**
      * @var \Enging\DI\DI
      */
-    protected $di, $db;
+    protected $di, $db, $view;
     public function __construct(DI $di)
     {
         $this->di = $di;
+        // Прописываем  в абстрактном классе-родителе создание обьекта view чтоб не делать это в контроллерах
+        $this->view = $this->di->get('View');
     }
 }
