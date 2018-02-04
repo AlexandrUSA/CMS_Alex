@@ -7,9 +7,10 @@
  */
 
 namespace Engine\Core\Auth;
-use Engine\Core\Cookie;
+use Engine\Helper\Cookie;
 
 /**
+ * Чисто вспомогательный базовый класс . Основная логика (проверка паролей и прочее) будет в контроллерах и моделях
  * Class Auth
  * @package Engine\Core\Auth
  */
@@ -20,6 +21,7 @@ class Auth implements AuthInterface
               $user;
 
     /**
+     * Проверка на авторизацию
      * @return bool
      */
     public function isAuthorized()
@@ -43,8 +45,8 @@ class Auth implements AuthInterface
      */
     public function authorize($user)
     {
-        Cookie::set('auth.authorized', true);
-        Cookie::set('auth.user', $user);
+        Cookie::set('auth_authorized', true);
+        Cookie::set('auth_user', $user);
         $this->authorized = true;
         $this->user       = $user;
     }
@@ -55,8 +57,8 @@ class Auth implements AuthInterface
      */
     public function unAuthorize()
     {
-        Cookie::delete('auth.authorized');
-        Cookie::delete('auth.user');
+        Cookie::delete('auth_authorized');
+        Cookie::delete('auth_user');
         $this->authorized = false;
         $this->user       = null;
     }
