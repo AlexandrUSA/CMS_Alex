@@ -1,3 +1,4 @@
 <?php
-print_r(get_defined_vars());
-echo '<h1>INDEX</h1>';
+    $this->theme->header();
+    $this->theme->footer();
+?>

@@ -7,19 +7,19 @@
  */
 namespace Cms\Controller;
 
-// Мой первый контроллер Home (Не забывать, что все контроллеры наследуются от абстрактного контроллера из Engine\Controller)
+// Мой первый контроллер Home (Не забывать, что все контроллеры наследуются от MainController
 class HomeController extends MainController
 {
-
-
     public function index()
     {
-        $db = $this->di->get('Database');
-        $mybd = new $db();
-        $data = $mybd->get('category', 'title');
+        // додумать как поудобнее обращаться к бд. сейчас не самый лучший вариант
+//        $db = $this->di->get('Database');
+//        $mybd = new $db();
+//        $data = $mybd->get('category', '*');
+        $data = ['name' => 'Alex'];
         $this->view->render('index', $data);
     }
-
+    // Чисто для тестов екшен news
     public function news($id = null)
     {
         echo 'News page!' . $id;

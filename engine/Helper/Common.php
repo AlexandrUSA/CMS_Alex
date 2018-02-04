@@ -11,6 +11,7 @@ class Common
 {
     /**
      *  Функция проверяющие метод обращения (GET или POST)
+     * @return строку метода: 'GET' / 'POST'
      */
     public static function getMethod()
     {

@@ -24,7 +24,7 @@ class Cms
     {
         try {
             // Подключение роутов
-            require_once __DIR__ . '\..\cms\Routes.php';
+            require_once __DIR__ . '/../' . mb_strtolower(ENV) . '/Routes.php';
 
             $routerDispatch = $this->router->dispatch(Common::getMethod(), Common::getURI());
             //   print_r($routerDispatch);
@@ -38,7 +38,7 @@ class Cms
             list($class, $action) = explode(':', $routerDispatch->getController(), 2);
             // print $class . '<br>' . $action;
 
-            $controller = '\\Cms\\Controller\\' . $class;
+            $controller = '\\' . ENV . '\\Controller\\' . $class;
             $parameters = $routerDispatch->getParameters();
             // И вызываем получившийся контролллер с акшеном
             call_user_func_array([new  $controller($this->di), $action], $parameters);

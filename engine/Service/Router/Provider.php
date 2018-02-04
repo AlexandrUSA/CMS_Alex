@@ -8,8 +8,9 @@ class Provider extends AbstractProvider
     public $serviceName = 'Router';
     public function init()
     {
+    	// Надо все же написать один глобальный конфиг наподобие Ларавел чтоб все подобный параметры менять оттуда
         $router = new Router('http://cms');
-        // Установил зависимость в di контейнер нашего сервиса Router
+        // Запись в di контейнер новой зависимости под именем $serviceName
         $this->di->set($this->serviceName, $router);
     }
 }

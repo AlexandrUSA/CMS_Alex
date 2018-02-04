@@ -15,11 +15,14 @@ abstract class Controller
     /**
      * @var \Enging\DI\DI
      */
-    protected $di, $db, $view;
+    protected $di, $db, $view, $config;
     public function __construct(DI $di)
     {
         $this->di = $di;
         // Прописываем  в абстрактном классе-родителе создание обьекта view чтоб не делать это в контроллерах
         $this->view = $this->di->get('View');
+        // В переменную конфиг записываем Конфиг из DI контейнера, чтобы иметь к нему доступ из любого контроллера напрямую
+        $this->config = $this->di->get('Config');
+
     }
 }
