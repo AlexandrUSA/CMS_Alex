@@ -18,7 +18,7 @@ use Engine\Helper\Cookie;
 class Auth implements AuthInterface
 {
     protected $authorized = false,
-              $user;
+              $hash_user;
 
     /**
      * Проверка на авторизацию
@@ -32,9 +32,9 @@ class Auth implements AuthInterface
     /**
      * @return mixed
      */
-    public function user()
+    public function getHashUser()
     {
-        return $this->user;
+        return Cookie::get('auth_user');
     }
 
 
@@ -47,8 +47,6 @@ class Auth implements AuthInterface
     {
         Cookie::set('auth_authorized', true);
         Cookie::set('auth_user', $user);
-        $this->authorized = true;
-        $this->user       = $user;
     }
 
     /**
@@ -59,8 +57,6 @@ class Auth implements AuthInterface
     {
         Cookie::delete('auth_authorized');
         Cookie::delete('auth_user');
-        $this->authorized = false;
-        $this->user       = null;
     }
 
     /**
@@ -68,9 +64,9 @@ class Auth implements AuthInterface
      * Генерируует дополнене к паролю
      * @return string
      */
-    public static function salt()
+    public function salt()
     {
-        return (string) hash(10000000, 9999999);
+        return (string) rand(10000000, 99999999);
     }
 
     /**

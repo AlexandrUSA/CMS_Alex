@@ -20,6 +20,10 @@ class LoginController extends Controller
     {
         parent::__construct($di);
         $this->auth = new Auth();
+        if($this->auth->getHashUser() !== null) {
+            header('Location: /admin/');
+            exit;
+        }
     }
 
     /**
@@ -30,10 +34,24 @@ class LoginController extends Controller
         $this->view->render('login');
     }
 
+
+
     public function authAdmin()
     {
+
         $params = $this->request->post;
-        $this->auth->authorize('gfdgdfg');
-        print_r($params);
+        $password = md5($params['password']);
+        $query = $this->db->query("SELECT * FROM `users` WHERE email = '{$params['email']}' AND password = '$password' LIMIT 1");
+        if( !empty($query)) {
+            $user = $query[0];
+            if($user['role'] === 'admin') {
+                $hash = (string) md5($user['id'] . ['email'] . $user['password'] . $this->auth->salt());
+                $this->db->write("UPDATE users SET hash = '$hash' WHERE id = '{$user['id']}'");
+                $this->auth->authorize($hash);
+                header('Location: /admin/login/');
+                exit;
+            }
+        }
     }
+
 }

@@ -32,3 +32,4 @@ class Common
         return $uri;
     }
 }
+?>

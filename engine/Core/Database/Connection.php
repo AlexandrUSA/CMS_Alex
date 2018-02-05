@@ -44,4 +44,11 @@ class Connection
         return ($result) ? $result : [];
     }
 
+    public function query($sql) {
+        $query = $this->connect->prepare( $sql );
+        $query->execute();
+        $result = $query->fetchAll();   // Получаем ассоциативный массив из обьекта ответа PDO
+        return ($result) ? $result : [];
+    }
+
 }

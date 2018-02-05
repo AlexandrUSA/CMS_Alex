@@ -8,9 +8,6 @@
 
 namespace Admin\Controller;
 
-
-use Engine\Core\Config\Config;
-
 class DashboardController extends AdminController
 {
     public function index()
