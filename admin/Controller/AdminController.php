@@ -21,6 +21,11 @@ class AdminController extends Controller
      * @var Auth Хранит экземпляр класса Auth для работы с авторизацей
      */
     protected $auth;
+    /**
+     * В data будем передавать глобальные данные
+     * @var array
+     */
+    public $data = [];
 
     public function __construct($di)
     {

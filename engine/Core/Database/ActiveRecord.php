@@ -8,7 +8,7 @@ use \ReflectionProperty;
 trait ActiveRecord
 {
     /**
-     * @var Connection
+     * @var Соединение с БД
      */
     protected $db;
 
@@ -18,7 +18,7 @@ trait ActiveRecord
     protected $queryBuilder;
 
     /**
-     * ActiveRecord constructor.
+     * constructor.
      * @param int $id
      */
     public function __construct($id = 0)
@@ -42,6 +42,20 @@ trait ActiveRecord
     }
 
     /**
+     * Функция поиска определенной строки в таблице по заданному ID
+     * @return null
+     */
+    public function findOne()
+    {
+        $find = $this->queryBuilder
+            ->select()
+            ->from($this->getTable())
+            ->where('id', $this->id)
+            ->sql();
+        return isset($find[0]) ? $find[0] : null;
+    }
+
+    /**
      *  Save User
      */
     public function save() {
@@ -58,7 +72,7 @@ trait ActiveRecord
                         ->set($properties)
                         ->sql();
             }
-            return $this->db->getLastID();
+
         } catch (\Exception $e) {
             echo $e->getMessage();
         }

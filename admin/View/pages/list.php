@@ -22,8 +22,12 @@
                 <tbody>
                 <?php foreach($pages as $page): ?>
                 <tr>
-                    <th scope="row">1</th>
-                    <td><?= $page['title'] ?></td>
+                    <th scope="row"> <?= $page['id'] ?></th>
+                    <td>
+                        <a href="/admin/pages/edit/<?= $page['id'] ?>">
+                            <?= $page['title'] ?>
+                        </a>
+                    </td>
                     <td>Otto</td>
                 </tr>
                 <?php endforeach; ?>

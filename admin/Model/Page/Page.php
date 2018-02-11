@@ -13,8 +13,12 @@ use Engine\Core\Database\ActiveRecord;
 class Page
 {
     use ActiveRecord;
-
+    /**
+     * Название таблицы, к которой относится модель
+     * @var string
+     */
     protected $table = 'page';
+
     public $id, $title, $content, $date;
 
     /**

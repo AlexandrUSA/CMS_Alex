@@ -28,6 +28,21 @@ class PageRepository extends Model
     }
 
     /**
+     * Функция, которая возращает страницу из БД с соответствующим ID
+     * @param $id
+     * @return null
+     */
+    public function getPageData($id)
+    {
+        // Создаем новый экземпляр класса Page с ID
+        $page = new Page($id);
+        // И с помощью метода из ActiveRecords findOne получаем нужную нам страницу из БД
+        return $page->findOne();
+
+    }
+
+    /**
+     * Функция добавления новой страницы
      * @param $params
      * @return mixed
      */
@@ -39,5 +54,20 @@ class PageRepository extends Model
         $id = $page->save();
         return $id;
     }
+
+    /**
+     * Функция обновления определенной страницы
+     * @param $params
+     * @return mixed
+     */
+    public function updatePage($params)
+    {
+        $page = new Page($params['page_id']);
+        $page->setTitle($params['title']);
+        $page->setContent($params['content']);
+        $id = $page->save();
+        return $id;
+    }
+
 
 }

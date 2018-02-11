@@ -16,9 +16,10 @@ use Engine\Core\Database\ActiveRecord;
  */
 class User
 {
+    // Расширяем наш класс трейтом ActiveRecord
     use ActiveRecord;
     /**
-     * Название интерисующей нас таблицы
+     * Название таблицы, к которой относится модель
      * @var string
      */
     protected $table = 'users';
@@ -28,6 +29,9 @@ class User
      */
     public $id, $name, $lastname, $email, $password, $role, $hash;
 
+
+    /*      Дальше идут геттеры/сеттеры для свойств*/
+
     /**
      * @param string $table
      */
@@ -35,6 +39,14 @@ class User
     {
         $this->table = $table;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTable()
+    {
+        return $this->table;
     }
 
     /**
@@ -69,14 +81,6 @@ class User
     public function getLastname()
     {
         return $this->lastname;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTable()
-    {
-        return $this->table;
     }
 
     /**

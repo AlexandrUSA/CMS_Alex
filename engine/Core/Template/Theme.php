@@ -106,7 +106,8 @@ class Theme
         }
 
         if(is_file($template)) {
-            extract($data);
+            // Обьединяем глобальный массив параметров data с $this->data - массивом пар-ов, которые могут передать при рендере
+            extract(array_merge($data, $this->data));
             require_once $template;
         } else {
             throw new \Exception(sprintf('Файл шаблона %s не существует', $template));
