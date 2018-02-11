@@ -8,6 +8,12 @@
 
 namespace Engine\Core\Request;
 
+/**
+ * Class Request
+ * Класс посредник, чтобы не общаться с суперглобальными массивами напрямую
+ * @package Engine\Core\Request
+ */
+
 class Request
 {
     public $get     = [];

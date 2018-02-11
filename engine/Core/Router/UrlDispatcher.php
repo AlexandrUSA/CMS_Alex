@@ -136,6 +136,7 @@ class UrlDispatcher
     {
         foreach ($parameters as $key => $parameter)
         {
+            // если ключ числовой то нас не интерисует и мы его удаляем
             if(is_int($key))
             {
                 unset($parameters[$key]);

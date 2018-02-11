@@ -20,4 +20,9 @@ class DI
         return isset($this->container[$key]) ? $this->container[$key] : null;
     }
 
+    public function getAll()
+    {
+        return $this->container;
+    }
+
 }

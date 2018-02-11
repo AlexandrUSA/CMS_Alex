@@ -17,19 +17,11 @@ use Engine\Helper\Cookie;
 
 class Auth implements AuthInterface
 {
-    protected $authorized = false,
-              $hash_user;
+
 
     /**
-     * Проверка на авторизацию
-     * @return bool
-     */
-    public function isAuthorized()
-    {
-        return $this->authorized;
-    }
-
-    /**
+     * Функция проверки, авторизирован ли уже юзер
+     * Возращает хеш - строку юзера из куки, если она записана (если юзер авторизировался то получим хеш-строку если нет то нет)
      * @return mixed
      */
     public function getHashUser()
@@ -40,7 +32,7 @@ class Auth implements AuthInterface
 
     /**
      * Функция авторизации
-     * Записывает куки
+     * Записывает в куки уникальный хеш юзера и присваевает auth_authorized true
      * @param $user
      */
     public function authorize($user)

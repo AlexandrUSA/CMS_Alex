@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 04 2018 г., 16:45
+-- Время создания: Фев 09 2018 г., 23:58
 -- Версия сервера: 5.7.20
 -- Версия PHP: 7.2.0
 
@@ -43,7 +43,9 @@ INSERT INTO `category` (`id`, `title`, `slug`) VALUES
 (2, 'Контакты', 'contacts'),
 (3, 'Услуги', 'services'),
 (4, 'Наш блог', 'blog'),
-(5, 'Новости', 'news');
+(5, 'Новости', 'news'),
+(6, 'Последние дела', 'last'),
+(7, 'Новости', 'news');
 
 -- --------------------------------------------------------
 
@@ -147,8 +149,10 @@ CREATE TABLE `users` (
   `birthday` date NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(70) NOT NULL,
+  `role` enum('admin','moderator','user','') NOT NULL DEFAULT 'user',
+  `hash` varchar(32) NOT NULL,
   `is_active` tinyint(4) NOT NULL DEFAULT '0',
-  `reg_date` date NOT NULL,
+  `reg_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -156,17 +160,8 @@ CREATE TABLE `users` (
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `lastname`, `birthday`, `email`, `password`, `is_active`, `reg_date`, `last_update`) VALUES
-(1, 'Петр', 'Варчар', '2010-06-01', 'pert@mail.ru', '32df2gdf23pert2323^dffddddd', 0, '2018-01-01', '2018-01-23 14:28:38'),
-(2, 'Зинаида', 'Ехо', '1938-01-02', 'zinocka@gmail.by', 'zina123', 0, '2017-12-12', '2018-01-02 07:33:30'),
-(3, 'Надежда', 'Тустринг', '2001-01-16', 'Nadia123@mail.ru', 'we23dfg', 1, '2018-01-03', '2018-01-23 22:45:12'),
-(4, 'Петр', 'Столыпин', '1906-01-08', 'reformes@russia.ru', 'zacaria', 1, '2005-01-10', '2018-01-23 22:45:12'),
-(5, 'Михаил', 'Фореач', '2010-01-29', 'miska@mil.ru', 'dfsdf', 0, '2018-01-02', '2018-01-23 22:48:16'),
-(6, 'Дмитрий', 'Нагиев', '1993-01-17', 'qwe@gmail.ru', 'lsjwaeh23', 0, '2010-01-06', '2018-01-23 22:48:16'),
-(7, 'Александ', 'Сивирко', '2001-08-09', 'sever@yandex.ru', 'erh34', 0, '2017-10-11', '2018-01-23 22:56:47'),
-(8, 'Василий', 'Грузинов', '1987-06-14', 'vaf@mail.ru', 'tyo34a', 0, '2016-07-13', '2018-01-23 22:56:47'),
-(9, 'Сергей', 'Киселев', '1968-05-10', 'fddsf@mail.ru', 'dfdsfdf23', 0, '2017-09-15', '2018-01-23 22:58:14'),
-(10, 'Надежда', 'Гудзон', '2009-07-11', 'nadgud@yandex.ru', 'gud1246', 1, '2017-08-15', '2018-01-23 22:58:14');
+INSERT INTO `users` (`id`, `name`, `lastname`, `birthday`, `email`, `password`, `role`, `hash`, `is_active`, `reg_date`, `last_update`) VALUES
+(12, 'Alexandr', 'Grinevich', '2001-01-08', 'AlexandrUSA@yandex.ru', 'b59c67bf196a4758191e42f76670ceba', 'admin', 'f800ece0a9fdfac83f51d24e638d083f', 1, '2018-02-05 00:31:32', '2018-02-05 00:31:32');
 
 --
 -- Индексы сохранённых таблиц
@@ -210,7 +205,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `goods`
@@ -234,7 +229,7 @@ ALTER TABLE `order_structure`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

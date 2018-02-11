@@ -99,7 +99,12 @@ class Theme
      */
     public function loadTemplateFile($name, $data = [])
     {
-        $template = ROOT . '\\content\\themes\\default\\' . $name . '.php';
+        if(ENV === 'Admin') {
+            $template = ROOT . '\\view\\' . $name . '.php';
+        } else {
+            $template = ROOT . '\\content\\themes\\default\\' . $name . '.php';
+        }
+
         if(is_file($template)) {
             extract($data);
             require_once $template;

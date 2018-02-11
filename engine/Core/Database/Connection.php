@@ -24,31 +24,23 @@ class Connection
     }
     // Функция записи в БД
     // Возращает true / false в зав-сти от успеха обращения к БД
-    public function write( $sql )
+    public function write( $sql, $values = [])
     {
         $write = $this->connect->prepare( $sql ); // Подготавливаем запрос $sql к БД
-        return $write->execute(); // И выполняем его
+        return $write->execute($values); // И выполняем его
     }
 
-    /**
-     * Функция чтения из БД
-     * @param $table название таблицы
-     * @param $elems то, что хотим выбрать
-     * @return ассоциативный массив с ответом или путой массив при неудаче
-     */
-    public function get($table, $elems) {
-        $sql = "SELECT $elems FROM $table";
+    public function query($sql, $values = []) {
         $query = $this->connect->prepare( $sql );
-        $query->execute();
+        $query->execute($values);
         $result = $query->fetchAll();   // Получаем ассоциативный массив из обьекта ответа PDO
         return ($result) ? $result : [];
     }
 
-    public function query($sql) {
-        $query = $this->connect->prepare( $sql );
-        $query->execute();
-        $result = $query->fetchAll();   // Получаем ассоциативный массив из обьекта ответа PDO
-        return ($result) ? $result : [];
+
+    public function getLastID()
+    {
+        return $this->connect->lastInsertId();
     }
 
 }

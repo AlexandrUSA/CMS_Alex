@@ -25,6 +25,7 @@ class Common
     public static function getURI()
     {
         $uri = $_SERVER['REQUEST_URI'];
+        // Если были передвны и параметры то обрезаем их
         if($queryPos = strpos($uri, '?'))
         {
             $uri = substr($uri, 0, $queryPos);

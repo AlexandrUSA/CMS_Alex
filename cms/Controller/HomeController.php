@@ -12,17 +12,25 @@ class HomeController extends MainController
 {
     public function index()
     {
-        // додумать как поудобнее обращаться к бд. сейчас не самый лучший вариант
-//        $db = $this->di->get('Database');
-//        $mybd = new $db();
-//        $data = $mybd->get('category', '*');
-        $data = ['name' => 'Alex'];
+        // Получаем все столбцы с твблицы category
+        $query = $this->queryBuilder
+            ->select()
+            ->from('category')
+            ->sql();
+
+        $data = ['categories' => $query,];
         $this->view->render('index', $data);
     }
     // Чисто для тестов екшен news
     public function news($id = null)
     {
         echo 'News page!' . $id;
+    }
+
+
+    public function ajax()
+    {
+        echo json_encode($_POST);
     }
 
 }

@@ -1,0 +1,41 @@
+html,
+body {
+	width: 100%;
+	height: 100%;
+	background-color: #ddd;
+}
+header {
+	padding: 2px 15px;
+	border-bottom: 1px solid #bbb;
+	background-color: #EE6E73;
+	text-align: center;
+	color: #fff;
+	box-shadow: 0 2px 4px #ddd;
+}
+
+h3 {
+	font-size: 24px;
+	line-height: 24px;
+}
+
+label {
+	font-size: 18px;
+}
+
+.form-signin {
+	width: 50%;
+	min-width: 320px;
+	margin: 50px auto;
+	background-color: #fff;
+	box-shadow: 0 2px 4px #ccc;
+	border-radius: 3px;
+}
+
+.form-inputs {
+	padding: 30px;
+}
+
+.btn-large {
+	width: 100%;
+}
+

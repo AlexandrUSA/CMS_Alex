@@ -1,0 +1,256 @@
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+}
+
+body {
+	overflow-x: hidden;
+	padding: 0;
+}
+
+a,
+a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.bg-movie { 
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100vw; 
+  height: 100vh; 
+  overflow: hidden;
+}
+
+.bg-movie > video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 120px;
+  background-color: rgba(0, 0, 0, .4);
+}
+
+header {
+	position: relative;
+	z-index: 2;
+	padding: 10px 70px;
+	text-align: center;
+}
+
+.hamburger {
+	float: left;
+	margin-top: 40px;
+  padding: 15px 15px;
+  display: inline-block;
+  cursor: pointer;
+  transition-property: opacity, filter;
+  transition-duration: 0.15s;
+  transition-timing-function: linear;
+  font: inherit;
+  color: inherit;
+  text-transform: none;
+  background-color: transparent;
+  border: 0;
+  overflow: visible;
+    outline: none;
+}
+ .hamburger:hover {
+    opacity: 0.7; 
+}
+
+.hamburger-box {
+  width: 40px;
+  height: 24px;
+  display: inline-block;
+  position: relative; 
+}
+
+.hamburger-inner {
+  display: block;
+  top: 50%;
+  margin-top: -2px; 
+}
+
+.hamburger-inner, 
+.hamburger-inner::before, 
+.hamburger-inner::after {
+  width: 40px;
+  height: 4px;
+  background-color: #fff;
+  border-radius: 4px;
+  position: absolute;
+  transition-property: transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease; 
+}
+
+.hamburger-inner::before, 
+.hamburger-inner::after {
+  content: "";
+  display: block; 
+}
+
+.hamburger-inner::before {
+  top: -10px; 
+}
+
+.hamburger-inner::after {
+  bottom: -10px; 
+}
+
+.hamburger--elastic .hamburger-inner {
+  top: 2px;
+  transition-duration: 0.275s;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+}
+
+.hamburger--elastic .hamburger-inner::before {
+  top: 10px;
+  transition: opacity 0.125s 0.275s ease; }
+.hamburger--elastic .hamburger-inner::after {
+  top: 20px;
+  transition: transform 0.275s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+}
+
+.hamburger--elastic.is-active .hamburger-inner {
+  transform: translate3d(0, 10px, 0) rotate(135deg);
+  transition-delay: 0.075s; 
+}
+.hamburger--elastic.is-active .hamburger-inner::before {
+  transition-delay: 0s;
+  opacity: 0; 
+}
+.hamburger--elastic.is-active .hamburger-inner::after {
+  transform: translate3d(0, -20px, 0) rotate(-270deg);
+  transition-delay: 0.075s; 
+}
+
+.logo-link {
+	display: inline-block;
+	border: 1px solid #ffffff;
+	padding: 5px;
+	text-align: center;
+}
+.logo-icon {
+	fill: #ffffff;
+}
+
+ul {
+	display: inline-block;
+	list-style-type: none;
+	margin: 0;
+	padding-left: 50px;
+}
+
+li {
+	position: relative;
+	display: none;
+	margin: 25px;
+	transition: transform .3s;
+	font-family: 'Yeseva One', cursive;
+	font-size: 40px;
+}
+
+.menu-item a {
+	position: relative;
+	text-decoration: none;
+	font-weight: bold;
+	color: #fff;
+}
+
+.menu-item a::before {
+	content: "";
+	position: absolute;
+	bottom: -10px;
+	left: 0;
+	right: 100%;
+	display: inline-block;
+	height: 2px;
+	background-color: #FF0DFF;
+	transition: right .25s;
+}
+
+.menu-item:hover a::before {
+	right: 0;
+}
+
+.head-login {
+  float: right;
+  padding: 45px 0;
+  font-size: 22px;
+  font-weight: normal;
+}
+
+.fa {
+  margin-right: 10px;
+}
+
+.popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	display: none;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, .6);
+	text-align: center;
+}
+
+.login {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 30%;
+	min-width: 320px;
+	padding: 30px;
+	background-color: #fff;
+	box-shadow: 3px 4px 15px 5px rgba(0, 0, 0, .6);
+}
+
+.login h2 {
+	margin-bottom: 40px;
+	text-transform: uppercase;
+}
+
+.login .btn {
+	margin-top: 40px;
+}
+.head-login:hover {
+    text-decoration: none;
+    color: #fff !important;
+}
+
+
+ @media (min-aspect-ratio: 16/9) {
+     .bg-movie > video { height: 300%; top: -100%; }
+ }
+ @media (max-aspect-ratio: 16/9) {
+     .bg-movie > video { width: 300%; left: -100%; }
+ }
+
+ @supports (object-fit: cover) {
+     .bg-movie > video {
+         top: 0; 
+         left: 0;
+         width: 100%; 
+         height: 100%;
+         object-fit: cover;
+     }
+ }

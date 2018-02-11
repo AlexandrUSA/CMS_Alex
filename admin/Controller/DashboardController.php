@@ -8,10 +8,24 @@
 
 namespace Admin\Controller;
 
+
+//use Engine\Core\Database\Connection;
+//
+//$ddb = new Connection();
+//
+//$data = $ddb->query("SELECT * FROM `users`");
+//print_r($data);
+
 class DashboardController extends AdminController
 {
     public function index()
     {
-        $this->view->render('dashboard');
+        // Загружаем через лоадер модель User и UserRepository
+        $userModel = $this->load->model('User');
+        //$userModel->repository->test();
+        //print_r($userModel->repository->getUsers());
+
+
+       $this->view->render('dashboard');
     }
 }

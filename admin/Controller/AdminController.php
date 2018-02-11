@@ -11,6 +11,7 @@ namespace Admin\Controller;
 use Engine\Controller;
 use Engine\Core\Auth\Auth;
 /**
+ * Класс родитель всех контроллеров админки
  * Class AdminController
  * @package Admin\Controller
  */
@@ -24,8 +25,10 @@ class AdminController extends Controller
     public function __construct($di)
     {
         parent::__construct($di);
+        // Создаем новый экземпляр класса Авторизация
         $this->auth = new Auth();
 
+        // Если автоизацию еще не проходили ($hash_user в Auth = null) перенаправляем на страницу авторизации
        if($this->auth->getHashUser() == null) {
            header('Location: /admin/login/');
            exit;
