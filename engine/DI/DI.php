@@ -20,9 +20,31 @@ class DI
         return isset($this->container[$key]) ? $this->container[$key] : null;
     }
 
+    /**
+     * @param $key
+     * @param array $elements
+     */
+    public function push($key, $element = [])
+    {
+        if ($this->has($key) !== null) {
+            $this->set($key, []);
+        }
+
+        if(!empty($element)) {
+           // array_push($this->container[$key], $elements);
+            $this->container[$key][$element['key']] = $element['value'];
+        }
+
+    }
+
     public function getAll()
     {
         return $this->container;
+    }
+
+    public function has($key)
+    {
+        return isset($this->container[$key]) ? $this->container[$key] : null;
     }
 
 }

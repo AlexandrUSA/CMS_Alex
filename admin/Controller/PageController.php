@@ -14,10 +14,11 @@ class PageController extends AdminController
     public function listing()
     {
         // Загружаем модель Page
-        $pageModel = $this->load->model('Page');
+        $this->load->model('Page');
 
+        exit;
         // под ключом pages загружаем из БД все созданные страницы
-        $data['pages'] = $pageModel->repository->getPages();
+        $data['pages'] = $this->model->page->getPages();
         // Рендерим вид list из директории pages
         $this->view->render('pages/list', $data);
     }

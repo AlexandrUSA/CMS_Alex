@@ -15,7 +15,7 @@ class Provider extends AbstractProvider
     public $serviceName = 'Load';
     public function init()
     {
-        $load = new Load();
+        $load = new Load($this->di);
         // Установил зависимость в di контейнер нашего сервиса Database
         $this->di->set($this->serviceName, $load);
     }
